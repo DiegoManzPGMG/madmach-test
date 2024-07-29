@@ -31,9 +31,14 @@ app.post('/saveChecksum', (req, res) => {
       }
     });
   });
+
+app.get('/hi', (req, res) => {
+    console.log("Success")
+    res.status(200).send('Checksum saved successfully');
+  });
   
   // Start the server
-  const PORT = process.env.PORT || 3000;
+  const PORT = process.env.PORT || 5050;
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });

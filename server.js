@@ -8,6 +8,7 @@ mongoose.connect('mongodb+srv://diego:madmach123@cluster0.bq7iukp.mongodb.net/MA
 const app = express();
 app.use(bodyParser.json());
 
+
 // Define a schema and model for the checksum, specifying the collection name
 const checksumSchema = new mongoose.Schema({
     documentId: String,
@@ -15,21 +16,19 @@ const checksumSchema = new mongoose.Schema({
     timestamp: { type: Date, default: Date.now }
   }, { collection: 'MD5Checksums' });
   
-const MD5Checksums = mongoose.model('MD5Checksums', checksumSchema);
-
-
-// Endpoint to receive checksum data
-app.post('/saveChecksum', (req, res) => {
-    const { documentId, checksum } = req.body;
+  const MD5Checksums = mongoose.model('MD5Checksums', checksumSchema);
   
-    const newChecksum = new MD5Checksums({ documentId, checksum });
-    newChecksum.save((err) => {
-      if (err) {
-        res.status(500).send('Error saving checksum');
-      } else {
-        res.status(200).send('Checksum saved successfully');
-      }
-    });
+  // Endpoint to receive checksum data
+  app.post('/saveChecksum', async (req, res) => {
+    try {
+      const { documentId, checksum } = req.body;
+  
+      const newChecksum = new MD5Checksums({ documentId, checksum });
+      await newChecksum.save();
+      res.status(200).send('Checksum saved successfully');
+    } catch (err) {
+      res.status(500).send('Error saving checksum');
+    }
   });
 
 app.get('/hi', (req, res) => {

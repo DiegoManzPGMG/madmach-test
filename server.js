@@ -9,7 +9,7 @@ mongoose.connect('mongodb+srv://diego:madmach123@cluster0.bq7iukp.mongodb.net/MA
 const app = express();
 app.use(bodyParser.json());
 
-// Define a schema and model for the checksum, specifying the collection name
+// Define a schema and model for the checksum, specifying the collection name for mongo
 const checksumSchema = new mongoose.Schema({
     folderId: String,
     checksum: String,

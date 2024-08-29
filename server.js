@@ -30,7 +30,7 @@ app.post('/saveChecksum', async (req, res) => {
 
         try {
             const response = await axios.get('http://3.219.90.64:3030/run-script', {
-                documentId,
+              folderId,
                 checksum
             });
             console.log('External API response:', response.data);
